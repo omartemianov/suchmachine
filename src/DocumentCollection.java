@@ -10,12 +10,12 @@ public class DocumentCollection {
   /**
    * the first element in the collection
    */
-  protected DocumentCollectionCell first;
+  private DocumentCollectionCell first;
 
   /**
    * the last element in the collection
    */
-  protected DocumentCollectionCell last;
+  private DocumentCollectionCell last;
 
   /**
    * the number of elements in this collection
@@ -405,7 +405,7 @@ public class DocumentCollection {
    * {@link DocumentCollection#match(String)} and then stored in the corresponding
    * {@link DocumentCollectionCell}.
    */
-  protected void sortBySimilarityDesc() {
+  private void sortBySimilarityDesc() {
     for (int pass = 1; pass < this.numDocuments(); pass++) {
 
       DocumentCollectionCell actCell = this.first;
@@ -431,7 +431,7 @@ public class DocumentCollection {
    * <code>0</code>.
    * 
    */
-  protected void addZeroWordsToDocuments() {
+  private void addZeroWordsToDocuments() {
     WordCountsArray allWords = this.allWords();
 
     DocumentCollectionCell tmp = this.first;

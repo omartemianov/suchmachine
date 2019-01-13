@@ -44,9 +44,9 @@ public class LinkedDocument extends Document {
    * @param text        the text of the LinkedDocument
    * @param id          the unique ID of the LinkedDocument
    */
-  public LinkedDocument(String title, String language, String summary, Date releaseDate, Author author, String text,
+  public LinkedDocument(String title, String language, String description, Date releaseDate, Author author, String text,
       String id) {
-    super(title, language, summary, releaseDate, author, text);
+    super(title, language, description, releaseDate, author, text);
 
     this.id = id;
     this.incomingLinks = new LinkedDocumentCollection();
@@ -135,9 +135,8 @@ public class LinkedDocument extends Document {
   private void createOutgoingDocumentCollection() {
     this.outgoingLinks = new LinkedDocumentCollection();
 
-    LinkedDocument newDoc;
     for (int i = 0; i < this.outgoingIDs.length; i++) {
-      newDoc = LinkedDocument.createLinkedDocumentFromFile(this.outgoingIDs[i]);
+      LinkedDocument newDoc = LinkedDocument.createLinkedDocumentFromFile(this.outgoingIDs[i]);
 
       /* do not add links to this page (page pointing to itself) */
       if (!this.equals(newDoc)) {

@@ -200,6 +200,13 @@ public class WordCountsArray {
     }
   }
 
+  private static int bucketAt(String word, int maxLength, int index) {
+    int iPrime = maxLength - index - 1;
+    if(iPrime >= word.length())
+      return 0;
+    return word.charAt(iPrime) - 'a' + 1;
+  }
+  
   /**
    * Sorts the <code>WordCount</code> objects administered by this instance with
    * the bucket sort algorithm.
@@ -208,22 +215,40 @@ public class WordCountsArray {
    */
   private void doBucketSort() {
     /* one bucket for every character */
-    WordCountsArray[] buckets = new WordCountsArray[26];
+    WordCountsArray[] buckets = new WordCountsArray[27];
 
     /* initialize the buckets */
-    for (int i = 0; i < buckets.length; i++) {
-      buckets[i] = new WordCountsArray(this.actualSize / 26);
+    for (int i = 0; i < buckets.length; i++)
+      buckets[i] = new WordCountsArray(this.actualSize / buckets.length);
+
+    int maxLength = 0;
+    for (int i = 0; i < this.actualSize; i++) {
+      maxLength = Math.max(maxLength, this.getWord(i).length());
     }
 
     /* sort words into buckets */
     for (int i = 0; i < this.actualSize; i++) {
-      if ((this.getWord(i).charAt(0) - 'a') >= 0)
-        buckets[this.getWord(i).charAt(0) - 'a'].add(this.getWord(i), this.getCount(i));
+      String word = this.getWord(i);
+      int charIndex = bucketAt(word, maxLength, 0);
+      if (charIndex >= 0) {
+        int count = this.getCount(i);
+        buckets[charIndex].add(word, count);
+      }
     }
 
-    /* sort every bucket with bubblesort */
-    for (int i = 0; i < buckets.length; i++) {
-      buckets[i].doBubbleSort();
+    for (int pos = 1; pos < maxLength; pos++) {
+      WordCountsArray[] bucketsNew = new WordCountsArray[buckets.length];
+      for (int i = 0; i < bucketsNew.length; i++)
+        bucketsNew[i] = new WordCountsArray(this.actualSize / buckets.length);
+      for (int i = 0; i < buckets.length; i++) {
+        for (int j = 0; j < buckets[i].size(); j++) {
+          String word = buckets[i].getWord(j);
+          int charIndex = bucketAt(word, maxLength, pos);
+          int count = buckets[i].getCount(j);
+          bucketsNew[charIndex].add(word, count);
+        }
+      }
+      buckets = bucketsNew;
     }
 
     /* new WordCount-Array that will contain the sorted WordCount-objects */

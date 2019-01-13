@@ -2,11 +2,11 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class TestItClient {
+public class TestItClient2 {
     public static void main(String[] args) throws UnknownHostException, IOException {
-        System.out.println("Trying 127.0.0.1");
-        Socket socket = new Socket("127.0.0.1", 8000);
-        System.out.println("Connected to 127.0.0.1");
+        System.out.println("Trying 127.0.0.2");
+        Socket socket = new Socket("127.0.0.2", 8000);
+        System.out.println("Connected to 127.0.0.2");
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
         String input="";
@@ -18,15 +18,16 @@ public class TestItClient {
 
                 //String question = in.readLine();
                 //System.out.println(question);
-                    //while((answer = in.readLine())!=null) {
-                    //    System.out.println(answer);
-                   // }
-                   // while(answer!=null)
-                   // {
+                //while((answer = in.readLine())!=null) {
+                //    System.out.println(answer);
+                // }
+                // while(answer!=null)
+                // {
+                if(answer!=null)
                 answer = answer.replace('|','\n');
-                        System.out.println(answer);
-                        //answer = in.readLine();
-                   // }
+                System.out.println(answer);
+                //answer = in.readLine();
+                // }
 
 
                 input = Terminal.ask("Please write: ");
