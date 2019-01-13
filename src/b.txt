@@ -1,0 +1,2 @@
+b.txt
+ich bin b.txt und verlinke niemanden
