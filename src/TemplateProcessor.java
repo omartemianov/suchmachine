@@ -14,7 +14,6 @@ public class TemplateProcessor {
 
     public String replace(Map<String, String> replacements) throws FileNotFoundException, IOException{
         BufferedReader in = new BufferedReader(new FileReader(filePath));
-
         String result = "";
         String line;
         while ((line = in.readLine()) != null) {
